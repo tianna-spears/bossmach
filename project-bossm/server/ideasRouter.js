@@ -10,3 +10,5 @@ const ideas = [
 ideasRouter.get('/', (req, res) => {
     res.send(ideas)
 })
+
+module.export = ideasRouter;
