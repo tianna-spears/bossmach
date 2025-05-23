@@ -3,9 +3,10 @@ const meetingsRouter = express.Router()
 const {
   getAllFromDatabase,
   addToDatabase,
-  deleteAllFromDatabase
+  deleteAllFromDatabase,
+  createMeeting
 } = require('./db')
-
+const checkMillionDollarIdea = require('./checkMillionDollarIdea');
 
 meetingsRouter.get('/', (req, res, next) => {
     const getMeetings = getAllFromDatabase('meetings')
@@ -13,7 +14,7 @@ meetingsRouter.get('/', (req, res, next) => {
 })
 
 meetingsRouter.post('/', (req, res, next) => {
-  const newMeeting = addToDatabase('meetings', req.body)
+  const newMeeting = addToDatabase('meetings', createMeeting())
   if(!newMeeting){
     return res.status(400).send('New meeting not created.')
   }
@@ -28,4 +29,4 @@ meetingsRouter.delete('/', (req, res, next) => {
     res.status(204).send();
 })
 
-module.exports = meetingsRouter;
+module.exports = meetingsRouter;body

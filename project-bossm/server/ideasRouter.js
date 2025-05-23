@@ -8,13 +8,14 @@ const {
   updateInstanceInDatabase,
   deleteFromDatabasebyId
 } = require('./db')
+const checkMillionDollarIdea = require('./checkMillionDollarIdea');
 
 ideasRouter.get('/', (req, res, next) => {
   const allIdeas = getAllFromDatabase('ideas')
   res.send(allIdeas)
 })
 
-ideasRouter.post('/', (req, res, next) => {
+ideasRouter.post('/', checkMillionDollarIdea, (req, res, next) => {
   const createIdea = addToDatabase('ideas', req.body)
   if (!createIdea) {
     res.status(400).send('Idea not created.')
@@ -30,7 +31,7 @@ ideasRouter.get('/:ideaId', (req, res, next) => {
     res.status(200).send(getIdea)
 })
 
-ideasRouter.put('/:ideaId', (req, res, next) => {
+ideasRouter.put('/:ideaId', checkMillionDollarIdea,(req, res, next) => {
   req.body.id = req.params.ideaId
   const updatedIdea = updateInstanceInDatabase('ideas', req.body)
   if(!updatedIdea) {
